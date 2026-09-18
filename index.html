@@ -1,0 +1,1962 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Mysterio - The Fortune Teller</title>
+
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+
+            margin: 0;
+
+            min-height: 100vh;
+
+            padding: 25px;
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            font-family: Georgia, serif;
+
+            color: white;
+
+            background:
+                radial-gradient(
+                    circle at center,
+                    #35106b 0%,
+                    #120025 45%,
+                    #050008 100%
+                );
+
+        }
+
+
+        .container {
+
+            width: 100%;
+
+            max-width: 760px;
+
+            padding: 35px;
+
+            text-align: center;
+
+            background:
+                rgba(12, 3, 30, 0.95);
+
+            border:
+                2px solid #8d5cff;
+
+            border-radius:
+                25px;
+
+            box-shadow:
+                0 0 25px rgba(141,92,255,.5),
+                0 0 80px rgba(141,92,255,.15);
+
+        }
+
+
+        .crystal {
+
+            font-size: 75px;
+
+            animation:
+                crystalGlow 2s infinite alternate;
+
+        }
+
+
+        @keyframes crystalGlow {
+
+            from {
+
+                transform:
+                    scale(1);
+
+                filter:
+                    drop-shadow(
+                        0 0 5px #8d5cff
+                    );
+
+            }
+
+
+            to {
+
+                transform:
+                    scale(1.08);
+
+                filter:
+                    drop-shadow(
+                        0 0 30px #cbb8ff
+                    );
+
+            }
+
+        }
+
+
+        h1 {
+
+            margin:
+                5px 0;
+
+            font-size:
+                48px;
+
+        }
+
+
+        .subtitle {
+
+            color:
+                #cbb8ff;
+
+            margin-bottom:
+                28px;
+
+        }
+
+
+        .profile {
+
+            display:
+                grid;
+
+            grid-template-columns:
+                1fr 1fr;
+
+            gap:
+                12px;
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        input,
+        select {
+
+            width:
+                100%;
+
+            padding:
+                15px;
+
+            border:
+                none;
+
+            outline:
+                none;
+
+            border-radius:
+                12px;
+
+            font-size:
+                16px;
+
+        }
+
+
+        .question {
+
+            margin-bottom:
+                15px;
+
+        }
+
+
+        button {
+
+            padding:
+                15px 30px;
+
+            border:
+                none;
+
+            border-radius:
+                12px;
+
+            background:
+                #8d5cff;
+
+            color:
+                white;
+
+            font-size:
+                17px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s;
+
+        }
+
+
+        button:hover {
+
+            transform:
+                scale(1.05);
+
+            background:
+                #a77bff;
+
+        }
+
+
+        .fortune-box {
+
+            min-height:
+                220px;
+
+            margin-top:
+                25px;
+
+            padding:
+                30px;
+
+            border-radius:
+                18px;
+
+            background:
+                rgba(255,255,255,.07);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                20px;
+
+            line-height:
+                1.65;
+
+            white-space:
+                pre-line;
+
+        }
+
+
+        .detected {
+
+            margin-top:
+                15px;
+
+            color:
+                #bca8e8;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .creator {
+
+            margin-top:
+                30px;
+
+            color:
+                #9e8acb;
+
+            font-size:
+                13px;
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .container {
+
+                padding:
+                    25px 18px;
+
+            }
+
+
+            .profile {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            h1 {
+
+                font-size:
+                    38px;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+
+<div class="container">
+
+
+    <div class="crystal">
+        🔮
+    </div>
+
+
+    <h1>
+        Mysterio
+    </h1>
+
+
+    <div class="subtitle">
+        The Fortune Teller
+    </div>
+
+
+    <!-- USER PROFILE -->
+
+    <div class="profile">
+
+        <input
+            id="name"
+            type="text"
+            placeholder="Your name"
+        >
+
+
+        <select id="zodiac">
+
+            <option value="">
+                Choose your zodiac sign
+            </option>
+
+            <option value="aries">
+                ♈ Aries
+            </option>
+
+            <option value="taurus">
+                ♉ Taurus
+            </option>
+
+            <option value="gemini">
+                ♊ Gemini
+            </option>
+
+            <option value="cancer">
+                ♋ Cancer
+            </option>
+
+            <option value="leo">
+                ♌ Leo
+            </option>
+
+            <option value="virgo">
+                ♍ Virgo
+            </option>
+
+            <option value="libra">
+                ♎ Libra
+            </option>
+
+            <option value="scorpio">
+                ♏ Scorpio
+            </option>
+
+            <option value="sagittarius">
+                ♐ Sagittarius
+            </option>
+
+            <option value="capricorn">
+                ♑ Capricorn
+            </option>
+
+            <option value="aquarius">
+                ♒ Aquarius
+            </option>
+
+            <option value="pisces">
+                ♓ Pisces
+            </option>
+
+        </select>
+
+    </div>
+
+
+    <!-- QUESTION -->
+
+    <input
+        class="question"
+        id="question"
+        type="text"
+        placeholder="Ask Mysterio anything..."
+    >
+
+
+    <button onclick="revealFortune()">
+        🔮 Reveal My Fortune
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div
+        class="fortune-box"
+        id="fortune"
+    >
+
+        Your answer is waiting
+        inside the crystal ball...
+
+    </div>
+
+
+    <div
+        class="detected"
+        id="detected"
+    ></div>
+
+
+    <div class="creator">
+
+        CREATOR..... LeBron OLUAH
+
+    </div>
+
+
+</div>
+
+
+
+<script>
+
+
+/* =====================================================
+   MYSTERIO 2.0
+   RESPONSE ENGINE
+   ===================================================== */
+
+
+/* =====================================================
+   DIRECT ANSWERS
+   ===================================================== */
+
+const answers = {
+
+
+    yes: [
+
+        "YES.",
+
+        "YES. The signs point strongly in that direction.",
+
+        "YES. The crystal gives a favorable signal.",
+
+        "YES. The path appears open.",
+
+        "YES. The signs are encouraging.",
+
+        "YES. There is a strong possibility.",
+
+        "YES. The answer leans clearly toward yes."
+
+    ],
+
+
+    no: [
+
+        "NO.",
+
+        "NO. The signs currently point away from it.",
+
+        "NO. The crystal gives an unfavorable signal.",
+
+        "NO. Something appears to stand in the way.",
+
+        "NO. The current path does not support it.",
+
+        "NO. The signs suggest reconsidering.",
+
+        "NO. The answer currently leans strongly toward no."
+
+    ],
+
+
+    maybe: [
+
+        "MAYBE.",
+
+        "The answer is uncertain.",
+
+        "The signs are divided.",
+
+        "The crystal cannot give a definite answer yet.",
+
+        "Either outcome remains possible.",
+
+        "The future has not settled on one path."
+
+    ],
+
+
+    notYet: [
+
+        "NOT YET.",
+
+        "Not yet. The timing appears important.",
+
+        "NOT YET. Something needs to happen first.",
+
+        "The answer may change with time.",
+
+        "Wait before making the final move.",
+
+        "The signs suggest patience."
+
+    ],
+
+
+    unlikely: [
+
+        "UNLIKELY.",
+
+        "The signs do not strongly support it.",
+
+        "The probability appears weak.",
+
+        "The path currently looks difficult.",
+
+        "The crystal gives a weak signal.",
+
+        "The signs lean away from this outcome."
+
+    ]
+
+};
+
+
+
+/* =====================================================
+   OPENINGS
+   ===================================================== */
+
+const openings = [
+
+    "The crystal ball suddenly brightens.",
+
+    "The mist inside the crystal begins to move.",
+
+    "The stars reflected inside the crystal shift.",
+
+    "A strange symbol appears inside the crystal.",
+
+    "The crystal becomes completely still.",
+
+    "A faint light begins forming inside the ball.",
+
+    "Mysterio studies the pattern carefully.",
+
+    "The crystal reveals an unusual path.",
+
+    "The stars seem to align around your question.",
+
+    "The mist clears and the answer begins to appear.",
+
+    "Something unusual has appeared in the crystal.",
+
+    "The crystal gives a surprisingly strong signal."
+
+];
+
+
+
+/* =====================================================
+   GENERAL DETAILS
+   ===================================================== */
+
+const details = [
+
+    "Your choices can still influence how this situation develops.",
+
+    "The future is not completely fixed.",
+
+    "A decision you make next may change the direction of events.",
+
+    "There may be information you have not discovered yet.",
+
+    "Something small could eventually become important.",
+
+    "The situation contains more possibilities than it first appears.",
+
+    "Timing may be more important than expected.",
+
+    "Patience could reveal information that is currently hidden.",
+
+    "The outcome may depend on how you respond to what happens next.",
+
+    "The path ahead is still changing."
+
+];
+
+
+
+/* =====================================================
+   TOPIC RESPONSES
+   ===================================================== */
+
+const topics = {
+
+
+    relationship: [
+
+        "A relationship may become clearer through honest communication.",
+
+        "Someone may reveal feelings that have not been obvious.",
+
+        "The next important development may begin with a conversation.",
+
+        "A connection could become stronger if both people communicate clearly.",
+
+        "The signs suggest that patience may matter in this relationship.",
+
+        "Someone's actions may tell you more than their words.",
+
+        "An unexpected interaction could change your view of someone.",
+
+        "A relationship may enter a different stage than you expected.",
+
+        "The answer may depend on whether both sides make an effort.",
+
+        "The future of this connection is not completely decided yet."
+
+    ],
+
+
+    friendship: [
+
+        "A friendship may become stronger through a shared experience.",
+
+        "Someone unexpected could become an important friend.",
+
+        "A misunderstanding may need to be cleared up.",
+
+        "A loyal friend may prove their value when you least expect it.",
+
+        "A new friendship could begin through an ordinary conversation.",
+
+        "The signs suggest paying attention to who consistently supports you.",
+
+        "An old friendship may enter a new phase.",
+
+        "Someone around you may understand you better than you realize."
+
+    ],
+
+
+    school: [
+
+        "Your preparation will influence the outcome more than luck.",
+
+        "A difficult subject may become easier once you find the right approach.",
+
+        "An opportunity to improve your results may appear.",
+
+        "A challenge at school could teach you something valuable.",
+
+        "The signs favor consistent effort.",
+
+        "A teacher or classmate may provide useful information.",
+
+        "Something you learn now could become useful later.",
+
+        "A disappointing result would not necessarily define your future."
+
+    ],
+
+
+    career: [
+
+        "A skill you are developing could become valuable later.",
+
+        "An unexpected opportunity may introduce you to a new direction.",
+
+        "Your future path may contain more than one possible career.",
+
+        "Learning something difficult now could benefit you later.",
+
+        "A connection with another person may introduce an opportunity.",
+
+        "The signs favor preparation before a major move.",
+
+        "A change of direction may eventually prove useful."
+
+    ],
+
+
+    money: [
+
+        "A financial opportunity may appear, but examine it carefully.",
+
+        "Patience may be more valuable than rushing toward quick gains.",
+
+        "A small opportunity could grow with careful planning.",
+
+        "The signs warn against making financial decisions purely from excitement.",
+
+        "Something that looks profitable may deserve closer examination.",
+
+        "Your future financial position may depend heavily on preparation.",
+
+        "A new skill could eventually become financially useful."
+
+    ],
+
+
+    success: [
+
+        "Progress is possible, but consistency will matter.",
+
+        "A setback could become useful if you learn from it.",
+
+        "A skill you are developing may eventually become an advantage.",
+
+        "Your next opportunity may come from something you nearly ignored.",
+
+        "The signs favor persistence.",
+
+        "An achievement may begin with a small decision.",
+
+        "Your biggest improvement may come from correcting an old mistake."
+
+    ],
+
+
+    family: [
+
+        "A family conversation may become more important than expected.",
+
+        "Someone in your family may need understanding rather than an argument.",
+
+        "An old disagreement may eventually become easier to discuss.",
+
+        "A family member could surprise you with unexpected support.",
+
+        "Communication may change the atmosphere around a family situation.",
+
+        "A small act of kindness could improve a family relationship."
+
+    ],
+
+
+    decision: [
+
+        "Do not rush the decision simply because you want an immediate answer.",
+
+        "Look carefully at what you gain and what you give up.",
+
+        "The easiest option is not always the most useful one.",
+
+        "More information could make the decision clearer.",
+
+        "Your decision may affect more than one part of your life.",
+
+        "Think about the consequences beyond today.",
+
+        "The signs favor careful consideration."
+
+    ],
+
+
+    luck: [
+
+        "An unexpected opportunity may appear.",
+
+        "A coincidence may work in your favor.",
+
+        "Something ordinary could lead to an unusual opportunity.",
+
+        "Your luck may change through a decision rather than pure chance.",
+
+        "A surprising event may create an opening.",
+
+        "The signs suggest keeping your eyes open for opportunities."
+
+    ],
+
+
+    future: [
+
+        "A new chapter may begin with a decision that seems small today.",
+
+        "An unexpected event could change your plans.",
+
+        "A new opportunity may appear before you are completely ready.",
+
+        "Your future contains several possible paths.",
+
+        "Something you are working on now may become important later.",
+
+        "The next stage may look different from what you currently expect."
+
+    ],
+
+
+    life: [
+
+        "Your life is shaped by many choices rather than one fixed prediction.",
+
+        "A new experience may change how you see yourself.",
+
+        "The next important chapter may begin unexpectedly.",
+
+        "A difficult period can contain lessons that become valuable later.",
+
+        "Your future remains open to change.",
+
+        "One decision can create a chain of unexpected opportunities."
+
+    ],
+
+
+    random: [
+
+        "The answer is stranger than the question.",
+
+        "Something unexpected may influence this situation.",
+
+        "The crystal detects several possible outcomes.",
+
+        "A surprising detail may eventually become important.",
+
+        "The answer is connected to something you have not considered.",
+
+        "The future around this question remains unusually unpredictable.",
+
+        "The crystal refuses to reveal everything at once.",
+
+        "There is more going on here than first appears.",
+
+        "An unexpected coincidence may become part of the story.",
+
+        "The answer may come from the most unlikely direction."
+
+    ]
+
+};
+
+
+
+/* =====================================================
+   ZODIAC DATA
+   ===================================================== */
+
+const zodiacData = {
+
+
+    aries: {
+
+        name: "Aries",
+
+        element: "Fire",
+
+        description:
+            "Aries is traditionally associated with energy, initiative and action."
+
+    },
+
+
+    taurus: {
+
+        name: "Taurus",
+
+        element: "Earth",
+
+        description:
+            "Taurus is traditionally associated with patience, stability and determination."
+
+    },
+
+
+    gemini: {
+
+        name: "Gemini",
+
+        element: "Air",
+
+        description:
+            "Gemini is traditionally associated with curiosity, communication and adaptability."
+
+    },
+
+
+    cancer: {
+
+        name: "Cancer",
+
+        element: "Water",
+
+        description:
+            "Cancer is traditionally associated with sensitivity, care and strong connections."
+
+    },
+
+
+    leo: {
+
+        name: "Leo",
+
+        element: "Fire",
+
+        description:
+            "Leo is traditionally associated with confidence, creativity and expression."
+
+    },
+
+
+    virgo: {
+
+        name: "Virgo",
+
+        element: "Earth",
+
+        description:
+            "Virgo is traditionally associated with organization, observation and practicality."
+
+    },
+
+
+    libra: {
+
+        name: "Libra",
+
+        element: "Air",
+
+        description:
+            "Libra is traditionally associated with balance, communication and cooperation."
+
+    },
+
+
+    scorpio: {
+
+        name: "Scorpio",
+
+        element: "Water",
+
+        description:
+            "Scorpio is traditionally associated with intensity, determination and curiosity."
+
+    },
+
+
+    sagittarius: {
+
+        name: "Sagittarius",
+
+        element: "Fire",
+
+        description:
+            "Sagittarius is traditionally associated with exploration, optimism and independence."
+
+    },
+
+
+    capricorn: {
+
+        name: "Capricorn",
+
+        element: "Earth",
+
+        description:
+            "Capricorn is traditionally associated with discipline, ambition and persistence."
+
+    },
+
+
+    aquarius: {
+
+        name: "Aquarius",
+
+        element: "Air",
+
+        description:
+            "Aquarius is traditionally associated with originality, ideas and independence."
+
+    },
+
+
+    pisces: {
+
+        name: "Pisces",
+
+        element: "Water",
+
+        description:
+            "Pisces is traditionally associated with imagination, empathy and creativity."
+
+    }
+
+};
+
+
+
+/* =====================================================
+   ASTRONOMY INFORMATION
+   ===================================================== */
+
+const astronomyFacts = [
+
+    "Your zodiac sign is traditionally linked to a constellation, although the modern zodiac system is an astrological tradition rather than a scientific method of predicting individual futures.",
+
+    "The Moon changes phase because we see different portions of its sunlit half from Earth.",
+
+    "The planets orbit the Sun because of gravity.",
+
+    "Stars can appear to form patterns called constellations, even though the stars in those patterns can be extremely far apart from one another.",
+
+    "The zodiac constellations lie along the region of sky associated with the apparent path of the Sun.",
+
+    "Astronomy can describe celestial objects and events, but it cannot scientifically determine a person's future from their zodiac sign.",
+
+    "The light from distant stars can take years to reach Earth, meaning we see many stars as they existed in the past.",
+
+    "Earth's rotation is responsible for the apparent daily movement of the Sun and stars across the sky."
+
+];
+
+
+
+/* =====================================================
+   NO-REPEAT SYSTEM
+   ===================================================== */
+
+let usedResponses = new Set();
+
+
+function normalize(text) {
+
+    return text
+
+        .toLowerCase()
+
+        .replace(/[^\w\s]/g, "")
+
+        .replace(/\s+/g, " ")
+
+        .trim();
+
+}
+
+
+
+function chooseUnique(array) {
+
+    if (!array || array.length === 0) {
+
+        return "";
+
+    }
+
+
+    let available =
+        array.filter(item =>
+            !usedResponses.has(normalize(item))
+        );
+
+
+    /*
+       If every item in this category has been used,
+       reset ONLY that category.
+
+       This means Mysterio can continue functioning
+       instead of becoming useless after enough questions.
+    */
+
+    if (available.length === 0) {
+
+        array.forEach(item => {
+
+            usedResponses.delete(
+                normalize(item)
+            );
+
+        });
+
+
+        available = [...array];
+
+    }
+
+
+    const selected =
+        available[
+            Math.floor(
+                Math.random() * available.length
+            )
+        ];
+
+
+    usedResponses.add(
+        normalize(selected)
+    );
+
+
+    return selected;
+
+}
+
+
+
+/* =====================================================
+   QUESTION DETECTOR
+   ===================================================== */
+
+function detectQuestionType(question) {
+
+    const q =
+        question.toLowerCase().trim();
+
+
+    /*
+       DEATH / LIFE
+    */
+
+    if (
+
+        q.includes("die") ||
+
+        q.includes("death") ||
+
+        q.includes("dead") ||
+
+        q.includes("when will i die") ||
+
+        q.includes("how will i die")
+
+    ) {
+
+        return "lifeDeath";
+
+    }
+
+
+    /*
+       YES / NO
+    */
+
+    if (
+
+        q.startsWith("will ") ||
+
+        q.startsWith("can ") ||
+
+        q.startsWith("is ") ||
+
+        q.startsWith("are ") ||
+
+        q.startsWith("do ") ||
+
+        q.startsWith("does ") ||
+
+        q.startsWith("did ") ||
+
+        q.startsWith("has ") ||
+
+        q.startsWith("have ")
+
+    ) {
+
+        return "yesno";
+
+    }
+
+
+    /*
+       DECISIONS
+    */
+
+    if (
+
+        q.includes("should i") ||
+
+        q.includes("should we") ||
+
+        q.includes("should i ")
+
+    ) {
+
+        return "decision";
+
+    }
+
+
+    /*
+       WHY
+    */
+
+    if (
+
+        q.startsWith("why ")
+
+    ) {
+
+        return "explanation";
+
+    }
+
+
+    /*
+       WHAT / WHEN / WHERE / WHO
+    */
+
+    if (
+
+        q.startsWith("what ") ||
+
+        q.startsWith("when ") ||
+
+        q.startsWith("where ") ||
+
+        q.startsWith("who ") ||
+
+        q.startsWith("how ")
+
+    ) {
+
+        return "future";
+
+    }
+
+
+    return "general";
+
+}
+
+
+
+/* =====================================================
+   TOPIC DETECTOR
+   ===================================================== */
+
+function detectTopic(question) {
+
+    const q =
+        question.toLowerCase();
+
+
+    if (
+
+        q.includes("love") ||
+
+        q.includes("crush") ||
+
+        q.includes("relationship") ||
+
+        q.includes("girlfriend") ||
+
+        q.includes("boyfriend") ||
+
+        q.includes("marry") ||
+
+        q.includes("marriage") ||
+
+        q.includes("romance")
+
+    ) {
+
+        return "relationship";
+
+    }
+
+
+    if (
+
+        q.includes("friend") ||
+
+        q.includes("best friend") ||
+
+        q.includes("friendship")
+
+    ) {
+
+        return "friendship";
+
+    }
+
+
+    if (
+
+        q.includes("exam") ||
+
+        q.includes("school") ||
+
+        q.includes("test") ||
+
+        q.includes("study") ||
+
+        q.includes("grade") ||
+
+        q.includes("teacher") ||
+
+        q.includes("result")
+
+    ) {
+
+        return "school";
+
+    }
+
+
+    if (
+
+        q.includes("career") ||
+
+        q.includes("job") ||
+
+        q.includes("work") ||
+
+        q.includes("profession")
+
+    ) {
+
+        return "career";
+
+    }
+
+
+    if (
+
+        q.includes("money") ||
+
+        q.includes("rich") ||
+
+        q.includes("wealth") ||
+
+        q.includes("business") ||
+
+        q.includes("salary")
+
+    ) {
+
+        return "money";
+
+    }
+
+
+    if (
+
+        q.includes("success") ||
+
+        q.includes("successful") ||
+
+        q.includes("win") ||
+
+        q.includes("achievement") ||
+
+        q.includes("famous")
+
+    ) {
+
+        return "success";
+
+    }
+
+
+    if (
+
+        q.includes("family") ||
+
+        q.includes("mother") ||
+
+        q.includes("father") ||
+
+        q.includes("brother") ||
+
+        q.includes("sister")
+
+    ) {
+
+        return "family";
+
+    }
+
+
+    if (
+
+        q.includes("lucky") ||
+
+        q.includes("luck") ||
+
+        q.includes("chance")
+
+    ) {
+
+        return "luck";
+
+    }
+
+
+    if (
+
+        q.includes("future") ||
+
+        q.includes("tomorrow") ||
+
+        q.includes("next year") ||
+
+        q.includes("later")
+
+    ) {
+
+        return "future";
+
+    }
+
+
+    if (
+
+        q.includes("life") ||
+
+        q.includes("purpose") ||
+
+        q.includes("destiny")
+
+    ) {
+
+        return "life";
+
+    }
+
+
+    if (
+
+        q.includes("choose") ||
+
+        q.includes("choice") ||
+
+        q.includes("decision") ||
+
+        q.includes("option")
+
+    ) {
+
+        return "decision";
+
+    }
+
+
+    return "random";
+
+}
+
+
+
+/* =====================================================
+   SAFE LIFE / DEATH RESPONSE
+   ===================================================== */
+
+function lifeDeathResponse(question) {
+
+    return (
+
+        "🔮 THE CRYSTAL'S ANSWER\n\n" +
+
+        "No one can reliably predict the date or manner of a person's death from a name, zodiac sign, or fortune-telling system.\n\n" +
+
+        "What Mysterio can reveal is this: your future is not a fixed script. The choices you make, the people around you, and the opportunities you encounter can all shape your life.\n\n" +
+
+        "The crystal points your attention toward the life you are actually able to influence."
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ZODIAC READING
+   ===================================================== */
+
+function zodiacReading(name, zodiac) {
+
+    if (!zodiac) {
+
+        return "";
+
+    }
+
+
+    const data =
+        zodiacData[zodiac];
+
+
+    if (!data) {
+
+        return "";
+
+    }
+
+
+    const person =
+        name || "traveler";
+
+
+    return (
+
+        "\n\n🌌 ZODIAC PROFILE\n\n" +
+
+        person +
+
+        ", your selected sign is " +
+
+        data.name +
+
+        ", traditionally associated with the " +
+
+        data.element +
+
+        " element.\n\n" +
+
+        data.description +
+
+        "\n\n" +
+
+        "Astronomy note: zodiac signs are part of an astrological tradition. They are not scientifically established methods for predicting individual future events."
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ASTRONOMY READING
+   ===================================================== */
+
+function astronomyReading() {
+
+    return (
+
+        "\n\n🌌 ASTRONOMY INSIGHT\n\n" +
+
+        chooseUnique(astronomyFacts)
+
+    );
+
+}
+
+
+
+/* =====================================================
+   BUILD THE RESPONSE
+   ===================================================== */
+
+function buildResponse(question, name, zodiac) {
+
+
+    const type =
+        detectQuestionType(question);
+
+
+    const topic =
+        detectTopic(question);
+
+
+    /*
+       LIFE / DEATH QUESTIONS
+    */
+
+    if (type === "lifeDeath") {
+
+        return lifeDeathResponse(question);
+
+    }
+
+
+    /*
+       DIRECT YES / NO
+    */
+
+    let directAnswer;
+
+
+    if (type === "yesno") {
+
+        const answerGroups = [
+
+            answers.yes,
+
+            answers.no,
+
+            answers.maybe,
+
+            answers.notYet,
+
+            answers.unlikely
+
+        ];
+
+
+        const selectedGroup =
+
+            answerGroups[
+
+                Math.floor(
+
+                    Math.random() *
+
+                    answerGroups.length
+
+                )
+
+            ];
+
+
+        directAnswer =
+            chooseUnique(selectedGroup);
+
+    }
+
+
+    /*
+       DECISION QUESTIONS
+    */
+
+    else if (type === "decision") {
+
+        const decisions = [
+
+            "PROCEED WITH CAUTION.",
+
+            "WAIT BEFORE DECIDING.",
+
+            "THE SIGNS FAVOR MOVING FORWARD.",
+
+            "THE SIGNS SUGGEST RECONSIDERING.",
+
+            "THE ANSWER DEPENDS ON WHAT YOU ARE WILLING TO RISK.",
+
+            "GATHER MORE INFORMATION FIRST.",
+
+            "THE TIMING MAY NOT BE RIGHT YET."
+
+        ];
+
+
+        directAnswer =
+            chooseUnique(decisions);
+
+    }
+
+
+    /*
+       OTHER QUESTIONS
+    */
+
+    else {
+
+        const generalAnswers = [
+
+            "The crystal reveals several possible paths.",
+
+            "The answer is still forming.",
+
+            "The future around this question remains open.",
+
+            "The crystal detects an uncertain but interesting path.",
+
+            "The answer is connected to something that has not happened yet.",
+
+            "The signs reveal possibility rather than certainty."
+
+        ];
+
+
+        directAnswer =
+            chooseUnique(generalAnswers);
+
+    }
+
+
+
+    const opening =
+        chooseUnique(openings);
+
+
+    const topicPool =
+        topics[topic] || topics.random;
+
+
+    const explanation =
+        chooseUnique(topicPool);
+
+
+    const detail =
+        chooseUnique(details);
+
+
+
+    let response =
+
+        opening +
+
+        "\n\n" +
+
+        directAnswer +
+
+        "\n\n" +
+
+        explanation +
+
+        "\n\n" +
+
+        detail;
+
+
+
+    /*
+       PERSONALIZATION
+    */
+
+    if (name) {
+
+        response =
+
+            name +
+
+            ", " +
+
+            response.charAt(0).toLowerCase() +
+
+            response.slice(1);
+
+    }
+
+
+
+    /*
+       ADD ZODIAC READING
+    */
+
+    if (zodiac) {
+
+        response +=
+            zodiacReading(name, zodiac);
+
+    }
+
+
+
+    /*
+       OCCASIONAL ASTRONOMY FACT
+    */
+
+    if (
+
+        zodiac &&
+
+        Math.random() < 0.35
+
+    ) {
+
+        response +=
+            astronomyReading();
+
+    }
+
+
+
+    return response;
+
+}
+
+
+
+/* =====================================================
+   REVEAL FORTUNE
+   ===================================================== */
+
+function revealFortune() {
+
+
+    const name =
+
+        document
+
+            .getElementById("name")
+
+            .value
+
+            .trim();
+
+
+    const zodiac =
+
+        document
+
+            .getElementById("zodiac")
+
+            .value;
+
+
+    const question =
+
+        document
+
+            .getElementById("question")
+
+            .value
+
+            .trim();
+
+
+    const fortuneBox =
+
+        document
+
+            .getElementById("fortune");
+
+
+    const detected =
+
+        document
+
+            .getElementById("detected");
+
+
+
+    if (!question) {
+
+        fortuneBox.textContent =
+
+            "🔮 Ask Mysterio a question first.";
+
+        detected.textContent = "";
+
+        return;
+
+    }
+
+
+
+    fortuneBox.textContent =
+
+        "🔮 Mysterio is reading the crystal ball...";
+
+
+    detected.textContent = "";
+
+
+
+    setTimeout(() => {
+
+
+        const response =
+
+            buildResponse(
+
+                question,
+
+                name,
+
+                zodiac
+
+            );
+
+
+        fortuneBox.textContent =
+            response;
+
+
+
+        detected.textContent =
+
+            "Question type: " +
+
+            detectQuestionType(
+
+                question
+
+            ).toUpperCase() +
+
+            "  |  Topic: " +
+
+            detectTopic(
+
+                question
+
+            ).toUpperCase();
+
+
+
+    }, 900);
+
+}
+
+
+
+/* =====================================================
+   ENTER KEY
+   ===================================================== */
+
+document
+
+    .getElementById("question")
+
+    .addEventListener(
+
+        "keydown",
+
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                revealFortune();
+
+            }
+
+        }
+
+    );
+
+</script>
+
+
+</body>
+
+</html>
