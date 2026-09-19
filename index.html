@@ -3,308 +3,2203 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Mysterio - Choose Your Fate</title>
-
+<title>Mysterio - Classic & Astrological Fortune Teller</title>
 <style>
+*{box-sizing:border-box}
+html{min-height:100%;background:#050008}
+body{margin:0;min-height:100vh;padding:0;color:white;font-family:Georgia,serif;background:radial-gradient(circle at 50% 10%,#35106b 0%,#120025 48%,#050008 100%);overflow-x:hidden}
 
-* {
-    box-sizing: border-box;
-}
+/* ============================================================
+   MYSTERIO FINAL EDITION
+   ONE-FILE DUAL-MODE ARCHITECTURE
+   Classic Mysterio + Astrological Mysterio
+   ============================================================ */
+.mode-shell{width:min(1180px,96%);margin:24px auto 60px;position:relative;z-index:2}
+.mode-header{text-align:center;margin:10px auto 22px}
+.mode-header .brand-orb{font-size:74px;display:inline-block;filter:drop-shadow(0 0 25px #9a6cff);animation:masterOrb 2s infinite alternate}
+@keyframes masterOrb{to{transform:scale(1.07);filter:drop-shadow(0 0 45px #c4a6ff)}}
+.mode-header h1{font-size:clamp(42px,7vw,76px);margin:0 0 4px;color:white;text-shadow:0 0 22px #9a6cff88}
+.mode-header p{margin:0;color:#cbb8ff;font-size:17px}
+.mode-switch{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:0 auto 24px}
+.mode-button{min-width:220px;padding:15px 24px;border:1px solid #7650b6;border-radius:15px;background:rgba(16,5,33,.88);color:#d9caff;font-family:Georgia,serif;font-size:16px;font-weight:bold;cursor:pointer;transition:.22s;box-shadow:0 0 20px #5d2eaa22}
+.mode-button:hover{transform:translateY(-2px);border-color:#c4a6ff;box-shadow:0 0 25px #9a6cff55}
+.mode-button.active{background:linear-gradient(135deg,#6f42c7,#a06cff);border-color:#d6c4ff;color:white;box-shadow:0 0 30px #9a6cff77}
+.mode-panel{display:none;animation:modeIn .35s ease}
+.mode-panel.active{display:block}
+@keyframes modeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+.astro-mode{position:relative}
+.astro-mode .app{width:min(1120px,100%);margin:0 auto 20px}
+.astro-mode .mode-note{margin:18px 0;text-align:center;color:#8f82a8;font-size:12px;line-height:1.55}
+@media(max-width:600px){.mode-shell{width:94%}.mode-button{width:100%;min-width:0}}
 
-body {
-    margin: 0;
-    min-height: 100vh;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    padding: 25px;
+        * {
+            box-sizing: border-box;
+        }
 
-    font-family: Georgia, serif;
-    color: white;
 
-    background:
-        radial-gradient(
-            circle at center,
-            #35106b 0%,
-            #120025 45%,
-            #050008 100%
-        );
-}
+        body {
 
-.container {
+            margin: 0;
 
-    width: 100%;
-    max-width: 800px;
+            min-height: 100vh;
 
-    padding: 40px;
+            padding: 25px;
 
-    text-align: center;
+            display: flex;
 
-    background: rgba(12, 3, 30, 0.96);
+            justify-content: center;
 
-    border: 2px solid #8d5cff;
+            align-items: center;
 
-    border-radius: 25px;
+            font-family: Georgia, serif;
 
-    box-shadow:
-        0 0 30px rgba(141,92,255,.6),
-        0 0 90px rgba(141,92,255,.2);
+            color: white;
 
-}
+            background:
+                radial-gradient(
+                    circle at center,
+                    #35106b 0%,
+                    #120025 45%,
+                    #050008 100%
+                );
 
-.crystal {
+        }
 
-    font-size: 85px;
 
-    animation:
-        glow 2s infinite alternate;
+        .container {
 
-}
+            width: 100%;
 
-@keyframes glow {
+            max-width: 760px;
 
-    from {
-        transform: scale(1);
-        filter: drop-shadow(0 0 5px #8d5cff);
-    }
+            padding: 35px;
 
-    to {
-        transform: scale(1.1);
-        filter: drop-shadow(0 0 35px #cbb8ff);
-    }
+            text-align: center;
 
-}
+            background:
+                rgba(12, 3, 30, 0.95);
 
-h1 {
+            border:
+                2px solid #8d5cff;
 
-    margin: 5px 0;
+            border-radius:
+                25px;
 
-    font-size: 58px;
+            box-shadow:
+                0 0 25px rgba(141,92,255,.5),
+                0 0 80px rgba(141,92,255,.15);
 
-}
+        }
 
-.subtitle {
 
-    color: #cbb8ff;
+        .crystal {
 
-    font-size: 18px;
+            font-size: 75px;
 
-    margin-bottom: 35px;
+            animation:
+                crystalGlow 2s infinite alternate;
 
-}
+        }
 
-.mode-title {
 
-    color: #f6d58a;
+        @keyframes crystalGlow {
 
-    letter-spacing: 2px;
+            from {
 
-    font-size: 13px;
+                transform:
+                    scale(1);
 
-    margin-bottom: 15px;
+                filter:
+                    drop-shadow(
+                        0 0 5px #8d5cff
+                    );
 
-}
+            }
 
-.modes {
 
-    display: grid;
+            to {
 
-    grid-template-columns:
-        1fr 1fr;
+                transform:
+                    scale(1.08);
 
-    gap: 18px;
+                filter:
+                    drop-shadow(
+                        0 0 30px #cbb8ff
+                    );
 
-}
+            }
 
-.mode {
+        }
 
-    padding: 25px 15px;
 
-    border:
-        1px solid #63418d;
+        h1 {
 
-    border-radius: 18px;
+            margin:
+                5px 0;
 
-    background:
-        rgba(255,255,255,.05);
+            font-size:
+                48px;
 
-    color: white;
+        }
 
-    text-decoration: none;
 
-    transition: .25s;
+        .subtitle {
 
-}
+            color:
+                #cbb8ff;
 
-.mode:hover {
+            margin-bottom:
+                28px;
 
-    transform:
-        translateY(-6px)
-        scale(1.02);
+        }
 
-    border-color:
-        #c4a6ff;
 
-    box-shadow:
-        0 0 25px
-        rgba(141,92,255,.4);
+        .profile {
 
-}
+            display:
+                grid;
 
-.icon {
+            grid-template-columns:
+                1fr 1fr;
 
-    font-size: 45px;
+            gap:
+                12px;
 
-    margin-bottom: 10px;
+            margin-bottom:
+                15px;
 
-}
+        }
 
-.mode h2 {
 
-    margin:
-        5px 0 8px;
+        input,
+        select {
 
-}
+            width:
+                100%;
 
-.mode p {
+            padding:
+                15px;
 
-    margin: 0;
+            border:
+                none;
 
-    color:
-        #bca8d5;
+            outline:
+                none;
 
-    font-size:
-        14px;
+            border-radius:
+                12px;
 
-    line-height:
-        1.5;
+            font-size:
+                16px;
 
-}
+        }
 
-.footer {
 
-    margin-top:
-        30px;
+        .question {
 
-    color:
-        #806d9f;
+            margin-bottom:
+                15px;
 
-    font-size:
-        12px;
+        }
 
-}
 
-@media(max-width:600px) {
+        button {
 
-    .container {
-        padding: 30px 20px;
-    }
+            padding:
+                15px 30px;
 
-    h1 {
-        font-size: 42px;
-    }
+            border:
+                none;
 
-    .modes {
-        grid-template-columns:
-            1fr;
-    }
+            border-radius:
+                12px;
 
-}
+            background:
+                #8d5cff;
+
+            color:
+                white;
+
+            font-size:
+                17px;
+
+            font-weight:
+                bold;
+
+            cursor:
+                pointer;
+
+            transition:
+                .2s;
+
+        }
+
+
+        button:hover {
+
+            transform:
+                scale(1.05);
+
+            background:
+                #a77bff;
+
+        }
+
+
+        .fortune-box {
+
+            min-height:
+                220px;
+
+            margin-top:
+                25px;
+
+            padding:
+                30px;
+
+            border-radius:
+                18px;
+
+            background:
+                rgba(255,255,255,.07);
+
+            display:
+                flex;
+
+            align-items:
+                center;
+
+            justify-content:
+                center;
+
+            font-size:
+                20px;
+
+            line-height:
+                1.65;
+
+            white-space:
+                pre-line;
+
+        }
+
+
+        .detected {
+
+            margin-top:
+                15px;
+
+            color:
+                #bca8e8;
+
+            font-size:
+                13px;
+
+        }
+
+
+        .creator {
+
+            margin-top:
+                30px;
+
+            color:
+                #9e8acb;
+
+            font-size:
+                13px;
+
+        }
+
+
+        @media(max-width:600px) {
+
+            .container {
+
+                padding:
+                    25px 18px;
+
+            }
+
+
+            .profile {
+
+                grid-template-columns:
+                    1fr;
+
+            }
+
+
+            h1 {
+
+                font-size:
+                    38px;
+
+            }
+
+        }
+
+    
+
+*{box-sizing:border-box}
+:root{--bg:#050009;--panel:#100521;--purple:#9a6cff;--violet:#c4a6ff;--gold:#f6d58a;--muted:#cbb8ff;--good:#72f6b1;--bad:#ff9bb7}
+body.astro-active{margin:0;min-height:100vh;color:white;font-family:Georgia,serif;background:radial-gradient(circle at 50% 15%,#432077 0,transparent 35%),radial-gradient(circle at 10% 90%,#24104b,transparent 35%),linear-gradient(135deg,#050009,#12021f);overflow-x:hidden}
+body.astro-active:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:60px 60px;opacity:.35}
+.app{width:min(1120px,94%);margin:25px auto 50px;position:relative}
+.astro-mode header{text-align:center;padding:18px}.astro-mode .crystal{font-size:72px;filter:drop-shadow(0 0 25px #9a6cff);animation:glow 2s infinite alternate}
+@keyframes glow{to{transform:scale(1.08);filter:drop-shadow(0 0 40px #c4a6ff)}}
+.astro-mode h1{font-size:clamp(42px,7vw,74px);margin:5px 0}.astro-mode .sub{color:var(--muted);font-size:18px}
+.astro-mode .card{background:rgba(16,5,33,.9);border:1px solid #7650b6;border-radius:24px;padding:24px;box-shadow:0 0 35px #5d2eaa22;backdrop-filter:blur(12px)}
+.astro-mode .layout{display:grid;grid-template-columns:360px 1fr;gap:18px}
+.astro-mode label{display:block;color:#dacbff;font-size:14px;margin-bottom:8px}
+.astro-mode select,input{width:100%;padding:14px;border:1px solid #56377e;border-radius:12px;background:#08030f;color:white;font:inherit;outline:none}
+select:focus,input:focus{border-color:var(--violet);box-shadow:0 0 15px #9a6cff33}
+.astro-mode .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+.astro-mode .sign{padding:10px 5px;border:1px solid #4b306e;border-radius:12px;background:#0d0619;color:#d8c9f2;cursor:pointer}
+.astro-mode .sign:hover,.astro-mode .sign.active{border-color:#c4a6ff;background:#24134a;box-shadow:0 0 14px #9a6cff44;color:white}
+.astro-mode .sign b{display:block;color:var(--gold);font-size:22px}
+.astro-mode .profile{display:flex;align-items:center;gap:14px;margin-top:16px}
+.astro-mode .orb{width:82px;height:82px;border-radius:50%;display:grid;place-items:center;font-size:45px;background:radial-gradient(circle,#3e216c,#0b0316);border:1px solid #9a6cff;box-shadow:0 0 25px #9a6cff55}
+.astro-mode .profile h2{margin:0 0 4px}.astro-mode .meta{color:#ad9bc8;font-size:13px;line-height:1.5}
+.astro-mode .row{display:grid;grid-template-columns:1fr auto;gap:10px}
+.astro-mode button{padding:14px 20px;border:0;border-radius:12px;background:linear-gradient(135deg,#8d5cff,#b177ff);color:white;font-weight:bold;cursor:pointer;box-shadow:0 0 18px #9a6cff44}
+.astro-mode button:hover{transform:translateY(-2px);filter:brightness(1.08)}
+.astro-mode .reading{min-height:300px;margin-top:18px;padding:25px;border-radius:18px;background:#ffffff08;display:grid;place-items:center;text-align:center}
+.astro-mode .loading{color:#d8c8ff;animation:blink 1s infinite alternate}@keyframes blink{to{opacity:.4}}
+.astro-mode .eyebrow{font-size:12px;letter-spacing:2px;color:var(--gold)}
+.astro-mode .answer h2{font-size:40px;margin:10px 0}.astro-mode .answer p{max-width:720px;margin:12px auto;color:#d2c4e1;line-height:1.65}
+.astro-mode .final{display:inline-block;padding:12px 18px;border:1px solid #72f6b177;border-radius:13px;color:var(--good);font-size:20px;background:#72f6b10a}
+.astro-mode .change{color:#ffd477!important;font-size:13px!important}
+.astro-mode .dashboard{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;margin-top:18px}
+.astro-mode .mini h3{margin:0 0 7px}.astro-mode .mini p{margin:0;color:#c7bad7;line-height:1.5;font-size:14px}
+.astro-mode .history{margin-top:18px}.astro-mode .history-item{padding:11px 13px;background:#ffffff08;border-radius:10px;color:#d8cbea;font-size:13px;margin-top:8px}
+.astro-mode .note{margin-top:16px;text-align:center;color:#8f82a8;font-size:12px;line-height:1.55}
+@media(max-width:850px){.astro-mode .layout{grid-template-columns:1fr}.astro-mode .dashboard{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.astro-mode .row{grid-template-columns:1fr}.astro-mode .dashboard{grid-template-columns:1fr}.astro-mode .grid{grid-template-columns:repeat(2,1fr)}}
 
 </style>
-
 </head>
-
 <body>
+<div class="mode-shell">
+<header class="mode-header">
+<div class="brand-orb">🔮</div>
+<h1>Mysterio</h1>
+<p>The Fortune Teller • Two ways to read the unknown</p>
+</header>
+<nav class="mode-switch" aria-label="Mysterio modes">
+<button class="mode-button active" id="classicModeButton" type="button" onclick="switchMysterioMode('classic')">🔮 Classic Mysterio</button>
+<button class="mode-button" id="astroModeButton" type="button" onclick="switchMysterioMode('astrology')">🌌 Astrological Mysterio</button>
+</nav>
+
+<section id="classicPanel" class="mode-panel active">
+
+
 
 <div class="container">
+
 
     <div class="crystal">
         🔮
     </div>
 
+
     <h1>
         Mysterio
     </h1>
+
 
     <div class="subtitle">
         The Fortune Teller
     </div>
 
 
-    <div class="mode-title">
+    <!-- USER PROFILE -->
 
-        HOW SHALL I READ YOUR FATE?
+    <div class="profile">
 
-    </div>
-
-
-    <div class="modes">
-
-
-        <a
-            class="mode"
-            href="classic.html"
+        <input
+            id="name"
+            type="text"
+            placeholder="Your name"
         >
 
-            <div class="icon">
-                🎲
-            </div>
 
-            <h2>
-                Classic Fortune
-            </h2>
+        <select id="zodiac">
 
-            <p>
-                Enter your question and
-                let the original Mysterio
-                fortune engine reveal a
-                mysterious answer.
-            </p>
-
-        </a>
-
-
-
-        <a
-            class="mode"
-            href="astrology.html"
-        >
-
-            <div class="icon">
-                ♈
-            </div>
-
-            <h2>
-                Astrology
-            </h2>
-
-            <p>
+            <option value="">
                 Choose your zodiac sign
-                and receive a reading based
-                on astrological symbolism.
-            </p>
+            </option>
 
-        </a>
+            <option value="aries">
+                ♈ Aries
+            </option>
 
+            <option value="taurus">
+                ♉ Taurus
+            </option>
+
+            <option value="gemini">
+                ♊ Gemini
+            </option>
+
+            <option value="cancer">
+                ♋ Cancer
+            </option>
+
+            <option value="leo">
+                ♌ Leo
+            </option>
+
+            <option value="virgo">
+                ♍ Virgo
+            </option>
+
+            <option value="libra">
+                ♎ Libra
+            </option>
+
+            <option value="scorpio">
+                ♏ Scorpio
+            </option>
+
+            <option value="sagittarius">
+                ♐ Sagittarius
+            </option>
+
+            <option value="capricorn">
+                ♑ Capricorn
+            </option>
+
+            <option value="aquarius">
+                ♒ Aquarius
+            </option>
+
+            <option value="pisces">
+                ♓ Pisces
+            </option>
+
+        </select>
 
     </div>
 
 
-    <div class="footer">
+    <!-- QUESTION -->
 
-        Two ways to consult the crystal ball.
+    <input
+        class="question"
+        id="question"
+        type="text"
+        placeholder="Ask Mysterio anything..."
+    >
 
-        <br><br>
+
+    <button onclick="revealFortune()">
+        🔮 Reveal My Fortune
+    </button>
+
+
+    <!-- RESULT -->
+
+    <div
+        class="fortune-box"
+        id="fortune"
+    >
+
+        Your answer is waiting
+        inside the crystal ball...
+
+    </div>
+
+
+    <div
+        class="detected"
+        id="detected"
+    ></div>
+
+
+    <div class="creator">
 
         CREATOR..... LeBron OLUAH
 
     </div>
 
+
 </div>
+
+
+
+
+</section>
+
+<section id="astrologyPanel" class="mode-panel astro-mode">
+
+<div class="app">
+<header><div class="crystal">🔮</div><h1>Mysterio</h1><div class="sub">The Astrology Oracle • Ask the stars a astroQuestion.</div></header>
+
+<div class="layout">
+<section class="card">
+<label>Choose your zodiac sign</label>
+<select id="astroSignSelect"></select>
+<div class="grid" id="astroSignGrid"></div>
+<div class="profile"><div class="astroOrb" id="astroOrb">♈</div><div><h2 id="astroSignName">Aries</h2><div class="meta" id="astroSignMeta"></div></div></div>
+</section>
+
+<section class="card">
+<label for="astroQuestion">Ask Mysterio anything</label>
+<div class="row"><input id="astroQuestion" placeholder="When will I pass my test?"><button id="astroReveal">🔮 Reveal</button></div>
+<div class="astroReading" id="astroReading"><div><div style="font-size:42px">✦</div><div style="color:#b9a9d8">Choose your sign and ask your astroQuestion.</div></div></div>
+</section>
+</div>
+
+<div class="dashboard">
+<div class="card mini"><h3>☀️ Sun-sign layer</h3><p id="astroSun"></p></div>
+<div class="card mini"><h3>🌙 Current Moon theme</h3><p id="astroMoon"></p></div>
+<div class="card mini"><h3>🪐 Planetary themes</h3><p id="astroPlanets"></p></div>
+</div>
+
+<section class="card astroHistory"><h3>📜 Recent Readings</h3><div id="astroHistory"></div></section>
+<div class="note">Mysterio uses traditional astrological symbolism for entertainment and reflection. Astrology is not scientifically established as a method for predicting future events, so readings are possibilities rather than guarantees. For important decisions, use real-world information and trusted advice.</div>
+</div>
+
+
+</section>
+</div>
+
+<script>
+function switchMysterioMode(mode){
+    const classicPanel=document.getElementById('classicPanel');
+    const astroPanel=document.getElementById('astrologyPanel');
+    const classicButton=document.getElementById('classicModeButton');
+    const astroButton=document.getElementById('astroModeButton');
+    const astrologyOn=mode==='astrology';
+    classicPanel.classList.toggle('active',!astrologyOn);
+    astroPanel.classList.toggle('active',astrologyOn);
+    classicButton.classList.toggle('active',!astrologyOn);
+    astroButton.classList.toggle('active',astrologyOn);
+    document.body.classList.toggle('astro-active',astrologyOn);
+    window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+
+<script>
+/* =====================================================
+   CLASSIC MYSTERIO ENGINE
+   Preserved from the supplied Classic Mysterio source.
+   =====================================================
+
+
+
+/* =====================================================
+   MYSTERIO 2.0
+   RESPONSE ENGINE
+   ===================================================== */
+
+
+/* =====================================================
+   DIRECT ANSWERS
+   ===================================================== */
+
+const answers = {
+
+
+    yes: [
+
+        "YES.",
+
+        "YES. The signs point strongly in that direction.",
+
+        "YES. The crystal gives a favorable signal.",
+
+        "YES. The path appears open.",
+
+        "YES. The signs are encouraging.",
+
+        "YES. There is a strong possibility.",
+
+        "YES. The answer leans clearly toward yes."
+
+    ],
+
+
+    no: [
+
+        "NO.",
+
+        "NO. The signs currently point away from it.",
+
+        "NO. The crystal gives an unfavorable signal.",
+
+        "NO. Something appears to stand in the way.",
+
+        "NO. The current path does not support it.",
+
+        "NO. The signs suggest reconsidering.",
+
+        "NO. The answer currently leans strongly toward no."
+
+    ],
+
+
+    maybe: [
+
+        "MAYBE.",
+
+        "The answer is uncertain.",
+
+        "The signs are divided.",
+
+        "The crystal cannot give a definite answer yet.",
+
+        "Either outcome remains possible.",
+
+        "The future has not settled on one path."
+
+    ],
+
+
+    notYet: [
+
+        "NOT YET.",
+
+        "Not yet. The timing appears important.",
+
+        "NOT YET. Something needs to happen first.",
+
+        "The answer may change with time.",
+
+        "Wait before making the final move.",
+
+        "The signs suggest patience."
+
+    ],
+
+
+    unlikely: [
+
+        "UNLIKELY.",
+
+        "The signs do not strongly support it.",
+
+        "The probability appears weak.",
+
+        "The path currently looks difficult.",
+
+        "The crystal gives a weak signal.",
+
+        "The signs lean away from this outcome."
+
+    ]
+
+};
+
+
+
+/* =====================================================
+   OPENINGS
+   ===================================================== */
+
+const openings = [
+
+    "The crystal ball suddenly brightens.",
+
+    "The mist inside the crystal begins to move.",
+
+    "The stars reflected inside the crystal shift.",
+
+    "A strange symbol appears inside the crystal.",
+
+    "The crystal becomes completely still.",
+
+    "A faint light begins forming inside the ball.",
+
+    "Mysterio studies the pattern carefully.",
+
+    "The crystal reveals an unusual path.",
+
+    "The stars seem to align around your question.",
+
+    "The mist clears and the answer begins to appear.",
+
+    "Something unusual has appeared in the crystal.",
+
+    "The crystal gives a surprisingly strong signal."
+
+];
+
+
+
+/* =====================================================
+   GENERAL DETAILS
+   ===================================================== */
+
+const details = [
+
+    "Your choices can still influence how this situation develops.",
+
+    "The future is not completely fixed.",
+
+    "A decision you make next may change the direction of events.",
+
+    "There may be information you have not discovered yet.",
+
+    "Something small could eventually become important.",
+
+    "The situation contains more possibilities than it first appears.",
+
+    "Timing may be more important than expected.",
+
+    "Patience could reveal information that is currently hidden.",
+
+    "The outcome may depend on how you respond to what happens next.",
+
+    "The path ahead is still changing."
+
+];
+
+
+
+/* =====================================================
+   TOPIC RESPONSES
+   ===================================================== */
+
+const topics = {
+
+
+    relationship: [
+
+        "A relationship may become clearer through honest communication.",
+
+        "Someone may reveal feelings that have not been obvious.",
+
+        "The next important development may begin with a conversation.",
+
+        "A connection could become stronger if both people communicate clearly.",
+
+        "The signs suggest that patience may matter in this relationship.",
+
+        "Someone's actions may tell you more than their words.",
+
+        "An unexpected interaction could change your view of someone.",
+
+        "A relationship may enter a different stage than you expected.",
+
+        "The answer may depend on whether both sides make an effort.",
+
+        "The future of this connection is not completely decided yet."
+
+    ],
+
+
+    friendship: [
+
+        "A friendship may become stronger through a shared experience.",
+
+        "Someone unexpected could become an important friend.",
+
+        "A misunderstanding may need to be cleared up.",
+
+        "A loyal friend may prove their value when you least expect it.",
+
+        "A new friendship could begin through an ordinary conversation.",
+
+        "The signs suggest paying attention to who consistently supports you.",
+
+        "An old friendship may enter a new phase.",
+
+        "Someone around you may understand you better than you realize."
+
+    ],
+
+
+    school: [
+
+        "Your preparation will influence the outcome more than luck.",
+
+        "A difficult subject may become easier once you find the right approach.",
+
+        "An opportunity to improve your results may appear.",
+
+        "A challenge at school could teach you something valuable.",
+
+        "The signs favor consistent effort.",
+
+        "A teacher or classmate may provide useful information.",
+
+        "Something you learn now could become useful later.",
+
+        "A disappointing result would not necessarily define your future."
+
+    ],
+
+
+    career: [
+
+        "A skill you are developing could become valuable later.",
+
+        "An unexpected opportunity may introduce you to a new direction.",
+
+        "Your future path may contain more than one possible career.",
+
+        "Learning something difficult now could benefit you later.",
+
+        "A connection with another person may introduce an opportunity.",
+
+        "The signs favor preparation before a major move.",
+
+        "A change of direction may eventually prove useful."
+
+    ],
+
+
+    money: [
+
+        "A financial opportunity may appear, but examine it carefully.",
+
+        "Patience may be more valuable than rushing toward quick gains.",
+
+        "A small opportunity could grow with careful planning.",
+
+        "The signs warn against making financial decisions purely from excitement.",
+
+        "Something that looks profitable may deserve closer examination.",
+
+        "Your future financial position may depend heavily on preparation.",
+
+        "A new skill could eventually become financially useful."
+
+    ],
+
+
+    success: [
+
+        "Progress is possible, but consistency will matter.",
+
+        "A setback could become useful if you learn from it.",
+
+        "A skill you are developing may eventually become an advantage.",
+
+        "Your next opportunity may come from something you nearly ignored.",
+
+        "The signs favor persistence.",
+
+        "An achievement may begin with a small decision.",
+
+        "Your biggest improvement may come from correcting an old mistake."
+
+    ],
+
+
+    family: [
+
+        "A family conversation may become more important than expected.",
+
+        "Someone in your family may need understanding rather than an argument.",
+
+        "An old disagreement may eventually become easier to discuss.",
+
+        "A family member could surprise you with unexpected support.",
+
+        "Communication may change the atmosphere around a family situation.",
+
+        "A small act of kindness could improve a family relationship."
+
+    ],
+
+
+    decision: [
+
+        "Do not rush the decision simply because you want an immediate answer.",
+
+        "Look carefully at what you gain and what you give up.",
+
+        "The easiest option is not always the most useful one.",
+
+        "More information could make the decision clearer.",
+
+        "Your decision may affect more than one part of your life.",
+
+        "Think about the consequences beyond today.",
+
+        "The signs favor careful consideration."
+
+    ],
+
+
+    luck: [
+
+        "An unexpected opportunity may appear.",
+
+        "A coincidence may work in your favor.",
+
+        "Something ordinary could lead to an unusual opportunity.",
+
+        "Your luck may change through a decision rather than pure chance.",
+
+        "A surprising event may create an opening.",
+
+        "The signs suggest keeping your eyes open for opportunities."
+
+    ],
+
+
+    future: [
+
+        "A new chapter may begin with a decision that seems small today.",
+
+        "An unexpected event could change your plans.",
+
+        "A new opportunity may appear before you are completely ready.",
+
+        "Your future contains several possible paths.",
+
+        "Something you are working on now may become important later.",
+
+        "The next stage may look different from what you currently expect."
+
+    ],
+
+
+    life: [
+
+        "Your life is shaped by many choices rather than one fixed prediction.",
+
+        "A new experience may change how you see yourself.",
+
+        "The next important chapter may begin unexpectedly.",
+
+        "A difficult period can contain lessons that become valuable later.",
+
+        "Your future remains open to change.",
+
+        "One decision can create a chain of unexpected opportunities."
+
+    ],
+
+
+    random: [
+
+        "The answer is stranger than the question.",
+
+        "Something unexpected may influence this situation.",
+
+        "The crystal detects several possible outcomes.",
+
+        "A surprising detail may eventually become important.",
+
+        "The answer is connected to something you have not considered.",
+
+        "The future around this question remains unusually unpredictable.",
+
+        "The crystal refuses to reveal everything at once.",
+
+        "There is more going on here than first appears.",
+
+        "An unexpected coincidence may become part of the story.",
+
+        "The answer may come from the most unlikely direction."
+
+    ]
+
+};
+
+
+
+/* =====================================================
+   ZODIAC DATA
+   ===================================================== */
+
+const zodiacData = {
+
+
+    aries: {
+
+        name: "Aries",
+
+        element: "Fire",
+
+        description:
+            "Aries is traditionally associated with energy, initiative and action."
+
+    },
+
+
+    taurus: {
+
+        name: "Taurus",
+
+        element: "Earth",
+
+        description:
+            "Taurus is traditionally associated with patience, stability and determination."
+
+    },
+
+
+    gemini: {
+
+        name: "Gemini",
+
+        element: "Air",
+
+        description:
+            "Gemini is traditionally associated with curiosity, communication and adaptability."
+
+    },
+
+
+    cancer: {
+
+        name: "Cancer",
+
+        element: "Water",
+
+        description:
+            "Cancer is traditionally associated with sensitivity, care and strong connections."
+
+    },
+
+
+    leo: {
+
+        name: "Leo",
+
+        element: "Fire",
+
+        description:
+            "Leo is traditionally associated with confidence, creativity and expression."
+
+    },
+
+
+    virgo: {
+
+        name: "Virgo",
+
+        element: "Earth",
+
+        description:
+            "Virgo is traditionally associated with organization, observation and practicality."
+
+    },
+
+
+    libra: {
+
+        name: "Libra",
+
+        element: "Air",
+
+        description:
+            "Libra is traditionally associated with balance, communication and cooperation."
+
+    },
+
+
+    scorpio: {
+
+        name: "Scorpio",
+
+        element: "Water",
+
+        description:
+            "Scorpio is traditionally associated with intensity, determination and curiosity."
+
+    },
+
+
+    sagittarius: {
+
+        name: "Sagittarius",
+
+        element: "Fire",
+
+        description:
+            "Sagittarius is traditionally associated with exploration, optimism and independence."
+
+    },
+
+
+    capricorn: {
+
+        name: "Capricorn",
+
+        element: "Earth",
+
+        description:
+            "Capricorn is traditionally associated with discipline, ambition and persistence."
+
+    },
+
+
+    aquarius: {
+
+        name: "Aquarius",
+
+        element: "Air",
+
+        description:
+            "Aquarius is traditionally associated with originality, ideas and independence."
+
+    },
+
+
+    pisces: {
+
+        name: "Pisces",
+
+        element: "Water",
+
+        description:
+            "Pisces is traditionally associated with imagination, empathy and creativity."
+
+    }
+
+};
+
+
+
+/* =====================================================
+   ASTRONOMY INFORMATION
+   ===================================================== */
+
+const astronomyFacts = [
+
+    "Your zodiac sign is traditionally linked to a constellation, although the modern zodiac system is an astrological tradition rather than a scientific method of predicting individual futures.",
+
+    "The Moon changes phase because we see different portions of its sunlit half from Earth.",
+
+    "The planets orbit the Sun because of gravity.",
+
+    "Stars can appear to form patterns called constellations, even though the stars in those patterns can be extremely far apart from one another.",
+
+    "The zodiac constellations lie along the region of sky associated with the apparent path of the Sun.",
+
+    "Astronomy can describe celestial objects and events, but it cannot scientifically determine a person's future from their zodiac sign.",
+
+    "The light from distant stars can take years to reach Earth, meaning we see many stars as they existed in the past.",
+
+    "Earth's rotation is responsible for the apparent daily movement of the Sun and stars across the sky."
+
+];
+
+
+
+/* =====================================================
+   NO-REPEAT SYSTEM
+   ===================================================== */
+
+let usedResponses = new Set();
+
+
+function normalize(text) {
+
+    return text
+
+        .toLowerCase()
+
+        .replace(/[^\w\s]/g, "")
+
+        .replace(/\s+/g, " ")
+
+        .trim();
+
+}
+
+
+
+function chooseUnique(array) {
+
+    if (!array || array.length === 0) {
+
+        return "";
+
+    }
+
+
+    let available =
+        array.filter(item =>
+            !usedResponses.has(normalize(item))
+        );
+
+
+    /*
+       If every item in this category has been used,
+       reset ONLY that category.
+
+       This means Mysterio can continue functioning
+       instead of becoming useless after enough questions.
+    */
+
+    if (available.length === 0) {
+
+        array.forEach(item => {
+
+            usedResponses.delete(
+                normalize(item)
+            );
+
+        });
+
+
+        available = [...array];
+
+    }
+
+
+    const selected =
+        available[
+            Math.floor(
+                Math.random() * available.length
+            )
+        ];
+
+
+    usedResponses.add(
+        normalize(selected)
+    );
+
+
+    return selected;
+
+}
+
+
+
+/* =====================================================
+   QUESTION DETECTOR
+   ===================================================== */
+
+function detectQuestionType(question) {
+
+    const q =
+        question.toLowerCase().trim();
+
+
+    /*
+       DEATH / LIFE
+    */
+
+    if (
+
+        q.includes("die") ||
+
+        q.includes("death") ||
+
+        q.includes("dead") ||
+
+        q.includes("when will i die") ||
+
+        q.includes("how will i die")
+
+    ) {
+
+        return "lifeDeath";
+
+    }
+
+
+    /*
+       YES / NO
+    */
+
+    if (
+
+        q.startsWith("will ") ||
+
+        q.startsWith("can ") ||
+
+        q.startsWith("is ") ||
+
+        q.startsWith("are ") ||
+
+        q.startsWith("do ") ||
+
+        q.startsWith("does ") ||
+
+        q.startsWith("did ") ||
+
+        q.startsWith("has ") ||
+
+        q.startsWith("have ")
+
+    ) {
+
+        return "yesno";
+
+    }
+
+
+    /*
+       DECISIONS
+    */
+
+    if (
+
+        q.includes("should i") ||
+
+        q.includes("should we") ||
+
+        q.includes("should i ")
+
+    ) {
+
+        return "decision";
+
+    }
+
+
+    /*
+       WHY
+    */
+
+    if (
+
+        q.startsWith("why ")
+
+    ) {
+
+        return "explanation";
+
+    }
+
+
+    /*
+       WHAT / WHEN / WHERE / WHO
+    */
+
+    if (
+
+        q.startsWith("what ") ||
+
+        q.startsWith("when ") ||
+
+        q.startsWith("where ") ||
+
+        q.startsWith("who ") ||
+
+        q.startsWith("how ")
+
+    ) {
+
+        return "future";
+
+    }
+
+
+    return "general";
+
+}
+
+
+
+/* =====================================================
+   TOPIC DETECTOR
+   ===================================================== */
+
+function detectTopic(question) {
+
+    const q =
+        question.toLowerCase();
+
+
+    if (
+
+        q.includes("love") ||
+
+        q.includes("crush") ||
+
+        q.includes("relationship") ||
+
+        q.includes("girlfriend") ||
+
+        q.includes("boyfriend") ||
+
+        q.includes("marry") ||
+
+        q.includes("marriage") ||
+
+        q.includes("romance")
+
+    ) {
+
+        return "relationship";
+
+    }
+
+
+    if (
+
+        q.includes("friend") ||
+
+        q.includes("best friend") ||
+
+        q.includes("friendship")
+
+    ) {
+
+        return "friendship";
+
+    }
+
+
+    if (
+
+        q.includes("exam") ||
+
+        q.includes("school") ||
+
+        q.includes("test") ||
+
+        q.includes("study") ||
+
+        q.includes("grade") ||
+
+        q.includes("teacher") ||
+
+        q.includes("result")
+
+    ) {
+
+        return "school";
+
+    }
+
+
+    if (
+
+        q.includes("career") ||
+
+        q.includes("job") ||
+
+        q.includes("work") ||
+
+        q.includes("profession")
+
+    ) {
+
+        return "career";
+
+    }
+
+
+    if (
+
+        q.includes("money") ||
+
+        q.includes("rich") ||
+
+        q.includes("wealth") ||
+
+        q.includes("business") ||
+
+        q.includes("salary")
+
+    ) {
+
+        return "money";
+
+    }
+
+
+    if (
+
+        q.includes("success") ||
+
+        q.includes("successful") ||
+
+        q.includes("win") ||
+
+        q.includes("achievement") ||
+
+        q.includes("famous")
+
+    ) {
+
+        return "success";
+
+    }
+
+
+    if (
+
+        q.includes("family") ||
+
+        q.includes("mother") ||
+
+        q.includes("father") ||
+
+        q.includes("brother") ||
+
+        q.includes("sister")
+
+    ) {
+
+        return "family";
+
+    }
+
+
+    if (
+
+        q.includes("lucky") ||
+
+        q.includes("luck") ||
+
+        q.includes("chance")
+
+    ) {
+
+        return "luck";
+
+    }
+
+
+    if (
+
+        q.includes("future") ||
+
+        q.includes("tomorrow") ||
+
+        q.includes("next year") ||
+
+        q.includes("later")
+
+    ) {
+
+        return "future";
+
+    }
+
+
+    if (
+
+        q.includes("life") ||
+
+        q.includes("purpose") ||
+
+        q.includes("destiny")
+
+    ) {
+
+        return "life";
+
+    }
+
+
+    if (
+
+        q.includes("choose") ||
+
+        q.includes("choice") ||
+
+        q.includes("decision") ||
+
+        q.includes("option")
+
+    ) {
+
+        return "decision";
+
+    }
+
+
+    return "random";
+
+}
+
+
+
+/* =====================================================
+   SAFE LIFE / DEATH RESPONSE
+   ===================================================== */
+
+function lifeDeathResponse(question) {
+
+    return (
+
+        "🔮 THE CRYSTAL'S ANSWER\n\n" +
+
+        "No one can reliably predict the date or manner of a person's death from a name, zodiac sign, or fortune-telling system.\n\n" +
+
+        "What Mysterio can reveal is this: your future is not a fixed script. The choices you make, the people around you, and the opportunities you encounter can all shape your life.\n\n" +
+
+        "The crystal points your attention toward the life you are actually able to influence."
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ZODIAC READING
+   ===================================================== */
+
+function zodiacReading(name, zodiac) {
+
+    if (!zodiac) {
+
+        return "";
+
+    }
+
+
+    const data =
+        zodiacData[zodiac];
+
+
+    if (!data) {
+
+        return "";
+
+    }
+
+
+    const person =
+        name || "traveler";
+
+
+    return (
+
+        "\n\n🌌 ZODIAC PROFILE\n\n" +
+
+        person +
+
+        ", your selected sign is " +
+
+        data.name +
+
+        ", traditionally associated with the " +
+
+        data.element +
+
+        " element.\n\n" +
+
+        data.description +
+
+        "\n\n" +
+
+        "Astronomy note: zodiac signs are part of an astrological tradition. They are not scientifically established methods for predicting individual future events."
+
+    );
+
+}
+
+
+
+/* =====================================================
+   ASTRONOMY READING
+   ===================================================== */
+
+function astronomyReading() {
+
+    return (
+
+        "\n\n🌌 ASTRONOMY INSIGHT\n\n" +
+
+        chooseUnique(astronomyFacts)
+
+    );
+
+}
+
+
+
+/* =====================================================
+   BUILD THE RESPONSE
+   ===================================================== */
+
+function buildResponse(question, name, zodiac) {
+
+
+    const type =
+        detectQuestionType(question);
+
+
+    const topic =
+        detectTopic(question);
+
+
+    /*
+       LIFE / DEATH QUESTIONS
+    */
+
+    if (type === "lifeDeath") {
+
+        return lifeDeathResponse(question);
+
+    }
+
+
+    /*
+       DIRECT YES / NO
+    */
+
+    let directAnswer;
+
+
+    if (type === "yesno") {
+
+        const answerGroups = [
+
+            answers.yes,
+
+            answers.no,
+
+            answers.maybe,
+
+            answers.notYet,
+
+            answers.unlikely
+
+        ];
+
+
+        const selectedGroup =
+
+            answerGroups[
+
+                Math.floor(
+
+                    Math.random() *
+
+                    answerGroups.length
+
+                )
+
+            ];
+
+
+        directAnswer =
+            chooseUnique(selectedGroup);
+
+    }
+
+
+    /*
+       DECISION QUESTIONS
+    */
+
+    else if (type === "decision") {
+
+        const decisions = [
+
+            "PROCEED WITH CAUTION.",
+
+            "WAIT BEFORE DECIDING.",
+
+            "THE SIGNS FAVOR MOVING FORWARD.",
+
+            "THE SIGNS SUGGEST RECONSIDERING.",
+
+            "THE ANSWER DEPENDS ON WHAT YOU ARE WILLING TO RISK.",
+
+            "GATHER MORE INFORMATION FIRST.",
+
+            "THE TIMING MAY NOT BE RIGHT YET."
+
+        ];
+
+
+        directAnswer =
+            chooseUnique(decisions);
+
+    }
+
+
+    /*
+       OTHER QUESTIONS
+    */
+
+    else {
+
+        const generalAnswers = [
+
+            "The crystal reveals several possible paths.",
+
+            "The answer is still forming.",
+
+            "The future around this question remains open.",
+
+            "The crystal detects an uncertain but interesting path.",
+
+            "The answer is connected to something that has not happened yet.",
+
+            "The signs reveal possibility rather than certainty."
+
+        ];
+
+
+        directAnswer =
+            chooseUnique(generalAnswers);
+
+    }
+
+
+
+    const opening =
+        chooseUnique(openings);
+
+
+    const topicPool =
+        topics[topic] || topics.random;
+
+
+    const explanation =
+        chooseUnique(topicPool);
+
+
+    const detail =
+        chooseUnique(details);
+
+
+
+    let response =
+
+        opening +
+
+        "\n\n" +
+
+        directAnswer +
+
+        "\n\n" +
+
+        explanation +
+
+        "\n\n" +
+
+        detail;
+
+
+
+    /*
+       PERSONALIZATION
+    */
+
+    if (name) {
+
+        response =
+
+            name +
+
+            ", " +
+
+            response.charAt(0).toLowerCase() +
+
+            response.slice(1);
+
+    }
+
+
+
+    /*
+       ADD ZODIAC READING
+    */
+
+    if (zodiac) {
+
+        response +=
+            zodiacReading(name, zodiac);
+
+    }
+
+
+
+    /*
+       OCCASIONAL ASTRONOMY FACT
+    */
+
+    if (
+
+        zodiac &&
+
+        Math.random() < 0.35
+
+    ) {
+
+        response +=
+            astronomyReading();
+
+    }
+
+
+
+    return response;
+
+}
+
+
+
+/* =====================================================
+   REVEAL FORTUNE
+   ===================================================== */
+
+function revealFortune() {
+
+
+    const name =
+
+        document
+
+            .getElementById("name")
+
+            .value
+
+            .trim();
+
+
+    const zodiac =
+
+        document
+
+            .getElementById("zodiac")
+
+            .value;
+
+
+    const question =
+
+        document
+
+            .getElementById("question")
+
+            .value
+
+            .trim();
+
+
+    const fortuneBox =
+
+        document
+
+            .getElementById("fortune");
+
+
+    const detected =
+
+        document
+
+            .getElementById("detected");
+
+
+
+    if (!question) {
+
+        fortuneBox.textContent =
+
+            "🔮 Ask Mysterio a question first.";
+
+        detected.textContent = "";
+
+        return;
+
+    }
+
+
+
+    fortuneBox.textContent =
+
+        "🔮 Mysterio is reading the crystal ball...";
+
+
+    detected.textContent = "";
+
+
+
+    setTimeout(() => {
+
+
+        const response =
+
+            buildResponse(
+
+                question,
+
+                name,
+
+                zodiac
+
+            );
+
+
+        fortuneBox.textContent =
+            response;
+
+
+
+        detected.textContent =
+
+            "Question type: " +
+
+            detectQuestionType(
+
+                question
+
+            ).toUpperCase() +
+
+            "  |  Topic: " +
+
+            detectTopic(
+
+                question
+
+            ).toUpperCase();
+
+
+
+    }, 900);
+
+}
+
+
+
+/* =====================================================
+   ENTER KEY
+   ===================================================== */
+
+document
+
+    .getElementById("question")
+
+    .addEventListener(
+
+        "keydown",
+
+        function(event) {
+
+            if (event.key === "Enter") {
+
+                revealFortune();
+
+            }
+
+        }
+
+    );
+
+
+</script>
+
+<script>
+/* =====================================================
+   ASTROLOGICAL MYSTERIO ENGINE
+   Preserved from the supplied Astrology Oracle source.
+   Namespaced so it cannot collide with Classic Mysterio.
+   =====================================================
+*/
+
+const astroSigns={
+aries:{n:"Aries",s:"♈",p:"Mars",e:"Fire",m:"Cardinal",good:["The astroReading favors initiative and a confident first move.","The symbolism points toward momentum if you act with discipline."],mixed:["The energy is strong, but rushing could work against you.","Progress looks possible, although timing matters."],bad:["Impulsiveness is the main warning in this astroReading.","Trying to force the result could create an unnecessary obstacle."]},
+taurus:{n:"Taurus",s:"♉",p:"Venus",e:"Earth",m:"Fixed",good:["The astroReading favors steady progress and persistence.","A patient approach looks stronger than a rushed one."],mixed:["The path looks promising but may move slowly.","Consistency matters more than speed here."],bad:["Stubbornness may become the main obstacle.","The astroReading favors flexibility alongside persistence."]},
+gemini:{n:"Gemini",s:"♊",p:"Mercury",e:"Air",m:"Mutable",good:["Communication and information are highlighted favorably.","A useful message or idea may open a path."],mixed:["Several possibilities appear rather than one fixed path.","Check important information before acting."],bad:["Mixed signals could create confusion.","Do not treat every message as a final answer."]},
+cancer:{n:"Cancer",s:"♋",p:"Moon",e:"Water",m:"Cardinal",good:["The symbolism supports a supportive development.","Intuition and preparation can work together."],mixed:["The emotional side of the astroQuestion is important.","Give yourself time before reacting."],bad:["Emotion could make the situation feel more certain than it is.","The astroReading favors calm reflection."]},
+leo:{n:"Leo",s:"♌",p:"Sun",e:"Fire",m:"Fixed",good:["The astroReading highlights confidence and visibility.","A chance to show what you can do may appear."],mixed:["An opportunity may appear, but effort still matters.","Confidence helps most when paired with preparation."],bad:["Pride could make a small obstacle larger.","The astroReading favors confidence paired with humility."]},
+virgo:{n:"Virgo",s:"♍",p:"Mercury",e:"Earth",m:"Mutable",good:["The symbolism strongly favors preparation and careful work.","A detail you notice could improve the outcome."],mixed:["The outcome may depend on correcting one overlooked detail.","The astroSigns favor checking your work twice."],bad:["Overthinking could delay action.","Not every uncertainty needs another round of analysis."]},
+libra:{n:"Libra",s:"♎",p:"Venus",e:"Air",m:"Cardinal",good:["The symbolism favors cooperation and balanced choices.","A conversation may help restore harmony."],mixed:["Two paths appear reasonably strong.","The astroReading favors a balanced decision with a clear deadline."],bad:["Indecision could become the real obstacle.","Trying to please everyone may weaken your own position."]},
+scorpio:{n:"Scorpio",s:"♏",p:"Pluto",e:"Water",m:"Fixed",good:["The astroReading suggests a deeper change beneath the surface.","Focused effort may astroReveal an opportunity."],mixed:["Something may need to change before the outcome becomes clear.","The situation has more depth than it first appears."],bad:["Trying to control every variable could create tension.","A hidden assumption may need to be questioned."]},
+sagittarius:{n:"Sagittarius",s:"♐",p:"Jupiter",e:"Fire",m:"Mutable",good:["The symbolism is expansive and opportunity-oriented.","A new possibility may appear through learning or exploration."],mixed:["The opportunity looks real, but expectations should stay realistic.","A bigger goal may require a smaller first step."],bad:["Overconfidence could make a risk look smaller than it is.","Do not confuse optimism with certainty."]},
+capricorn:{n:"Capricorn",s:"♑",p:"Saturn",e:"Earth",m:"Cardinal",good:["The symbolism favors disciplined effort and measurable progress.","Structure and consistency can strengthen the result."],mixed:["The result may take longer than expected.","The astroSigns favor building rather than forcing."],bad:["Pressure may become counterproductive.","The astroReading favors steady progress and sensible limits."]},
+aquarius:{n:"Aquarius",s:"♒",p:"Uranus",e:"Air",m:"Fixed",good:["The symbolism favors an unusual solution.","A new idea may change the direction of the situation."],mixed:["The path may change unexpectedly.","Flexibility is more useful than trying to predict every detail."],bad:["Rebellion for its own sake could create problems.","The astroSigns favor thoughtful independence."]},
+pisces:{n:"Pisces",s:"♓",p:"Neptune",e:"Water",m:"Mutable",good:["The symbolism favors imagination and intuitive insight.","A creative approach may unlock the situation."],mixed:["Your intuition may be useful, but facts still matter.","The picture is not completely clear yet."],bad:["Wishful thinking could blur the situation.","Do not treat a feeling as proof."]}
+};
+
+const astroTopics={
+school:["exam","test","school","study","homework","class","grade","teacher","pass"],
+friendship:["friend","friendship","bestie"],
+love:["love","crush","relationship","dating","partner"],
+money:["money","business","job","career","rich","income"],
+success:["success","win","achievement","goal"],
+decision:["should i","should we","choice","decision","option"],
+future:["future","when will","soon","tomorrow","next"],
+family:["family","parent","mom","dad","brother","sister"],
+travel:["travel","trip","journey","move","visit"],
+health:["health","sleep","tired","wellbeing"]
+};
+
+const astroTopicText={
+school:"For school questions, the astroReading emphasizes preparation, concentration, and effort.",
+friendship:"For friendship questions, the astroReading emphasizes communication, trust, and mutual action.",
+love:"For relationship questions, the astroReading emphasizes communication, patience, boundaries, and mutual choice.",
+money:"For money questions, the astroReading emphasizes planning and caution rather than relying on a prediction.",
+success:"For success questions, the astroReading emphasizes consistency and practical steps behind the goal.",
+decision:"For decisions, the astroReading is symbolic guidance rather than a substitute for weighing real consequences.",
+future:"For future questions, the astroReading interprets the current symbolism as a possible direction, not a fixed event.",
+family:"For family questions, the astroReading emphasizes patience, communication, and understanding.",
+travel:"For travel questions, the astroReading emphasizes planning and flexibility.",
+health:"For health questions, Mysterio stays symbolic and should not be astroUsed to diagnose or predict medical outcomes."
+};
+
+const astroUsed={};
+function astroPick(arr,key){astroUsed[key]??=new Set();let a=arr.filter(x=>!astroUsed[key].has(x));if(!a.length){astroUsed[key].clear();a=arr}let x=a[Math.floor(Math.random()*a.length)];astroUsed[key].add(x);return x}
+
+function astroTopicOf(q){let t=q.toLowerCase();for(const [k,v] of Object.entries(astroTopics))if(v.some(w=>t.includes(w)))return k;return"future"}
+
+function astroSky(){
+return{
+astroMoon:"Capricorn",
+moonMeaning:"practicality, responsibility, structure and follow-through",
+aspect:"Moon sextile Venus",
+aspectMeaning:"cooperation, balance and creative touches",
+planetary:"Mercury in Libra, Venus in Scorpio, Uranus retrograde in Gemini"
+}}
+
+function astroCalculate(signKey,q){
+const s=astroSigns[signKey],topic=astroTopicOf(q),t=q.toLowerCase(),k=astroSky();let score=0;
+if(["school","success"].includes(topic)&&["Earth","Fire"].includes(s.e))score++;
+if(topic==="love"&&s.p==="Venus")score+=2;
+if(topic==="travel"&&s.n==="Sagittarius")score+=2;
+if(topic==="friendship"&&["Air","Water"].includes(s.e))score++;
+if(topic==="decision"&&["Air","Earth"].includes(s.e))score++;
+if(/pass|win|succeed/.test(t))score++;
+if(/fail|lose/.test(t))score--;
+let r=Math.random(),kind,answer,body;
+if(score>=2&&r>.18){kind="favorable";answer="THE READING LEANS YES.";body=astroPick(s.good,"good")}
+else if(score<=-1||r<.22){kind="challenging";answer="THE READING LEANS NO FOR NOW.";body=astroPick(s.bad,"bad")}
+else{kind="mixed";answer="THE READING IS MIXED.";body=astroPick(s.mixed,"mixed")}
+let timing=/when|soon|tomorrow|next|near/i.test(t)
+?`The ${k.astroMoon} Moon symbolism favors ${k.moonMeaning}. Timing is treated as a window, not a guaranteed date.`
+:`The ${k.aspect} symbolism is interpreted here as ${k.aspectMeaning}.`;
+return{topic,kind,answer,body,timing,sign:s.n,planet:s.p,extra:astroTopicText[topic]}
+}
+
+function astroChoose(k){
+document.getElementById("astroSignSelect").value=k;
+document.querySelectorAll(".sign").forEach(x=>x.classList.toggle("active",x.dataset.sign===k));
+const s=astroSigns[k];document.getElementById("astroOrb").textContent=s.s;document.getElementById("astroSignName").textContent=s.n;
+document.getElementById("astroSignMeta").textContent=`${s.p} • ${s.e} • ${s.m}`;
+}
+
+function astroReveal(){
+const q=document.getElementById("astroQuestion").value.trim(),k=document.getElementById("astroSignSelect").value;
+if(!q){document.getElementById("astroReading").innerHTML="<div style='color:#ffd477'>🔮 Ask Mysterio a astroQuestion first.</div>";return}
+document.getElementById("astroReading").innerHTML="<div class='loading'>🔮 Mysterio is astroReading the astrological symbolism...</div>";
+setTimeout(()=>{
+const r=astroCalculate(k,q),c=r.kind==="favorable"?"var(--good)":r.kind==="challenging"?"var(--bad)":"var(--gold)";
+document.getElementById("astroReading").innerHTML=`<div class="answer"><div class="eyebrow">${r.sign.toUpperCase()} • ${r.planet.toUpperCase()} • ${r.topic.toUpperCase()}</div><h2 style="color:${c}">${r.answer}</h2><p>${r.body} ${r.extra}</p><p>${r.timing}</p><div class="final">${r.answer}</div><p class="change">Your choices still matter. You can change what happens by what you do next.</p></div>`;
+const item=document.createElement("div");item.className="astroHistory-item";item.textContent=`${r.sign} • ${r.topic} • ${r.answer} — "${q}"`;document.getElementById("astroHistory").prepend(item);
+while(document.getElementById("astroHistory").children.length>6)document.getElementById("astroHistory").lastChild.remove()
+},850)
+}
+
+function astroInit(){
+const sel=document.getElementById("astroSignSelect"),grid=document.getElementById("astroSignGrid");
+for(const [k,s] of Object.entries(astroSigns)){
+let o=document.createElement("option");o.value=k;o.textContent=`${s.s} ${s.n}`;sel.appendChild(o);
+let b=document.createElement("button");b.className="sign";b.dataset.sign=k;b.innerHTML=`<b>${s.s}</b>${s.n}`;b.onclick=()=>astroChoose(k);grid.appendChild(b)
+}
+astroChoose("aries");const k=astroSky();
+document.getElementById("astroSun").textContent="Choose a Sun sign to create the astroReading's sign-based layer. A full birth-chart interpretation normally uses birth date, time and place.";
+document.getElementById("astroMoon").textContent=`Moon in ${k.astroMoon}: ${k.moonMeaning}.`;
+document.getElementById("astroPlanets").textContent=`${k.planetary}.`;
+sel.onchange=e=>astroChoose(e.target.value);
+document.getElementById("astroReveal").onclick=astroReveal;
+document.getElementById("astroQuestion").onkeydown=e=>{if(e.key==="Enter")astroReveal()}
+}
+astroInit();
+
+</script>
 
 </body>
 </html>
